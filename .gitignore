@@ -32,3 +32,6 @@ snowtrack-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Ignore elixir ls build folder
+.elixir_ls
+
