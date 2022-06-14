@@ -1,6 +1,6 @@
 # Snowtrack
 
-![Snowtrack Icon](assets/static/images/icon/snowtrack.svg)
+![Snowtrack Icon](priv/static/images/icon/snowtrack.svg)
 
 ## What it this ?
 
