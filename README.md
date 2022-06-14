@@ -1,6 +1,18 @@
 # Snowtrack
 
-To start your Phoenix server:
+## What it this ?
+
+This is the main repository for the Snowtrack backend and frontend.
+
+## What is it for ?
+
+Snowtrack is a mobile analytic tool that cover the AARRR product metrics.
+
+## How do I get started ?
+
+You should definitly install `asdf` and run `asdf install` to get the right tool versions.
+
+Then, to start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
@@ -10,10 +22,22 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-## Learn more
+### Learn more
 
   * Official website: https://www.phoenixframework.org/
   * Guides: https://hexdocs.pm/phoenix/overview.html
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+## How do I run the tests ?
+
+Run `mix test` !
+
+## How do I debug it ?
+
+Run `iex -S mix phx.server` or use VSCode and run the default debug task.
+
+## Where are the features ?
+
+For now, there is no features. Come back later 😉

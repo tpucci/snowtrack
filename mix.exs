@@ -10,7 +10,8 @@ defmodule Snowtrack.MixProject do
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      default_task: "phx.server"
     ]
   end
 
