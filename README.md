@@ -1,5 +1,7 @@
 # Snowtrack
 
+![Snowtrack Icon](assets/static/images/icon/snowtrack.svg)
+
 ## What it this ?
 
 This is the main repository for the Snowtrack backend and frontend.
