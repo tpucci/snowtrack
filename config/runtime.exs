@@ -25,6 +25,7 @@ if config_env() == :prod do
   config :snowtrack, Snowtrack.Repo,
     # ssl: true,
     url: database_url,
+    schema: "snowtrack_relational",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
     socket_options: maybe_ipv6
 

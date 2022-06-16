@@ -6,6 +6,7 @@ config :snowtrack, Snowtrack.Repo,
   password: "postgres",
   hostname: "localhost",
   database: "snowtrack_dev",
+  schema: "snowtrack_relational",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
