@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 // See the Tailwind configuration guide for advanced usage
 // https://tailwindcss.com/docs/configuration
 module.exports = {
@@ -7,7 +9,12 @@ module.exports = {
     "../lib/snowtrack_web/**/*.*ex",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: colors.cyan,
+        background: colors.slate,
+      },
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };
