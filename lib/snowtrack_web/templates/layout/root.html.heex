@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8"/>
-    <%# icons and manifests %>
-    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/images/icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/images/icon/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/icon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/icon/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="msapplication-config" content="/browserconfig.xml" />
-    <meta name="msapplication-TileColor" content="#0F172A">
-    <meta name="theme-color" content="#0F172A">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="msapplication-TileColor" content="#0F172A" />
+    <meta name="theme-color" content="#0F172A" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <%= csrf_meta_tag() %>
-    <%= live_title_tag assigns[:page_title] || "Snowtrack", suffix: " · Phoenix Framework" %>
-    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
-    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <%= live_title_tag(assigns[:page_title] || "Snowtrack", suffix: " · Phoenix Framework") %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")} />
+    <script
+      defer
+      phx-track-static
+      type="text/javascript"
+      src={Routes.static_path(@conn, "/assets/app.js")}
+    >
+    </script>
   </head>
-  <body>
+  <body class="antialiased text-slate-400 bg-slate-900">
     <%= @inner_content %>
   </body>
 </html>

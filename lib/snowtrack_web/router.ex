@@ -18,6 +18,7 @@ defmodule SnowtrackWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    live "/signin", SignInLive
   end
 
   # Other scopes may use custom stacks.
