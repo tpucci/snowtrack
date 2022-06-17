@@ -34,6 +34,7 @@ defmodule Snowtrack.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bcrypt_elixir, "~> 3.0"},
       {:ecto_sql, "~> 3.6"},
       {:esbuild, "~> 0.3", runtime: Mix.env() == :dev},
       {:floki, ">= 0.30.0", only: :test},
