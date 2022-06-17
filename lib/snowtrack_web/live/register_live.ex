@@ -8,14 +8,16 @@ defmodule SnowtrackWeb.RegisterLive do
         <div>
           <img class="mx-auto h-12 w-auto" src="/images/icon/snowtrack.svg" alt="Snowtrack logo" />
           <h1 class="mt-6 text-center text-3xl font-bold text-white">
-            Register and start monitoring your apps
+            <%= dgettext("accounts", "Register and start monitoring your apps") %>
           </h1>
         </div>
         <form class="mt-8 space-y-6" action="#" method="POST">
           <input type="hidden" name="remember" value="true" />
           <div class="rounded-md shadow-sm -space-y-px">
             <div>
-              <label for="email-address" class="sr-only">Email address</label>
+              <label for="email-address" class="sr-only">
+                <%= dgettext("accounts", "Email address") %>
+              </label>
               <input
                 id="email-address"
                 name="email"
@@ -28,7 +30,9 @@ defmodule SnowtrackWeb.RegisterLive do
             </div>
 
             <div>
-              <label for="password" class="sr-only">Password</label>
+              <label for="password" class="sr-only">
+                <%= dgettext("accounts", "Password") %>
+              </label>
               <input
                 id="password"
                 name="password"
@@ -56,7 +60,7 @@ defmodule SnowtrackWeb.RegisterLive do
                   <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
                 </svg>
               </span>
-              Register
+              <%= dgettext("accounts", "Register") %>
             </button>
           </div>
         </form>
@@ -66,7 +70,7 @@ defmodule SnowtrackWeb.RegisterLive do
   end
 
   def mount(_params, _session, socket) do
-    socket = assign(socket, page_title: "Register")
+    socket = assign(socket, page_title: dgettext("accounts", "Register"))
     {:ok, socket}
   end
 end
