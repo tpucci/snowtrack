@@ -48,6 +48,7 @@ defmodule SnowtrackWeb do
         layout: {SnowtrackWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
+      unquote(components())
     end
   end
 
@@ -98,6 +99,13 @@ defmodule SnowtrackWeb do
       import SnowtrackWeb.ErrorHelpers
       import SnowtrackWeb.Gettext
       alias SnowtrackWeb.Router.Helpers, as: Routes
+    end
+  end
+
+  defp components do
+    quote do
+      # Import all design system components
+      import SnowtrackWeb.Components.TextField
     end
   end
 

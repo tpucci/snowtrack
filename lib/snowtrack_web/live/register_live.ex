@@ -19,29 +19,23 @@ defmodule SnowtrackWeb.RegisterLive do
         </div>
         <.form let={f} for={@changeset} phx-change="validate" phx-submit="save" class="mt-8 space-y-6">
           <div class="space-y-3">
-            <div>
-              <%= label(f, :email, dgettext("accounts", "Email address"), class: "sr-only") %>
-              <%= email_input(f, :email,
-                required: true,
-                phx_debounce: debounce,
-                class:
-                  "appearance-none relative block w-full px-3 py-2 border border-background-50/[0.1] placeholder-background-500 text-white rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm bg-background-800",
-                placeholder: dgettext("accounts", "Email address")
-              ) %>
-              <%= error_tag(f, :email) %>
-            </div>
+            <.textfield
+              form={f}
+              field={:email}
+              field_type={:email}
+              label={dgettext("accounts", "Email address")}
+              placeholder={dgettext("accounts", "Email address")}
+              debounce={debounce}
+            />
 
-            <div>
-              <%= label(f, :password, dgettext("accounts", "Password"), class: "sr-only") %>
-              <%= password_input(f, :password,
-                required: true,
-                phx_debounce: debounce,
-                class:
-                  "appearance-none relative block w-full px-3 py-2 border border-background-50/[0.1] placeholder-background-500 text-white rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm bg-background-800",
-                placeholder: dgettext("accounts", "Password")
-              ) %>
-              <%= error_tag(f, :password) %>
-            </div>
+            <.textfield
+              form={f}
+              field={:password}
+              field_type={:password}
+              label={dgettext("accounts", "Password")}
+              placeholder={dgettext("accounts", "Password")}
+              debounce={debounce}
+            />
           </div>
 
           <%= submit class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" do %>
