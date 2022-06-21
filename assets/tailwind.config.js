@@ -14,6 +14,15 @@ module.exports = {
         primary: colors.sky,
         background: colors.slate,
       },
+      animation: {
+        appear: "scale-y 1s ease-out 1",
+      },
+      keyframes: {
+        "scale-y": {
+          "0%": { "max-height": "0", overflow: "hidden", opacity: 0 },
+          "100%": { "max-height": "300px", opacity: 1 },
+        },
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],
