@@ -38,19 +38,7 @@ defmodule SnowtrackWeb.RegisterLive do
             />
           </div>
 
-          <%= submit class: "group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500" do %>
-            <span class="absolute left-0 inset-y-0 flex items-center pl-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 text-primary-500 group-hover:text-primary-300"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path d="M10 2a5 5 0 00-5 5v2a2 2 0 00-2 2v5a2 2 0 002 2h10a2 2 0 002-2v-5a2 2 0 00-2-2H7V7a3 3 0 015.905-.75 1 1 0 001.937-.5A5.002 5.002 0 0010 2z" />
-              </svg>
-            </span>
-            <%= dgettext("accounts", "Register") %>
-          <% end %>
+          <.submitbtn label={dgettext("accounts", "Register")} icon={&ic_lock_open/1} />
         </.form>
       </div>
     </div>

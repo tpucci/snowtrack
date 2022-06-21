@@ -106,6 +106,8 @@ defmodule SnowtrackWeb do
     quote do
       # Import all design system components
       import SnowtrackWeb.Components.TextField
+      import SnowtrackWeb.Components.SubmitBtn
+      import SnowtrackWeb.Components.Icon
     end
   end
 
