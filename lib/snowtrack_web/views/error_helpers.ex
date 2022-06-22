@@ -10,8 +10,8 @@ defmodule SnowtrackWeb.ErrorHelpers do
   """
   def error_tag(form, field) do
     Enum.map(Keyword.get_values(form.errors, field), fn error ->
-      content_tag(:span, translate_error(error),
-        class: "invalid-feedback",
+      content_tag(:p, translate_error(error),
+        class: "text-sm text-amber-400 px-3 py-1 animate-appear invalid-feedback",
         phx_feedback_for: input_name(form, field)
       )
     end)
