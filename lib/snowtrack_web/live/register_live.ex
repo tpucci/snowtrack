@@ -38,7 +38,11 @@ defmodule SnowtrackWeb.RegisterLive do
             />
           </div>
 
-          <.submitbtn label={dgettext("accounts", "Register")} icon={&ic_lock_open/1} />
+          <.submitbtn
+            label={dgettext("accounts", "Register")}
+            icon={&ic_lock_open/1}
+            label_disable_with={dgettext("accounts", "Registering...")}
+          />
         </.form>
       </div>
     </div>
@@ -66,13 +70,13 @@ defmodule SnowtrackWeb.RegisterLive do
         {:ok, _} =
           Accounts.deliver_user_confirmation_instructions(
             user,
-            &Routes.user_confirmation_url(user, :edit, &1)
+            &Routes.user_confirmation_url(socket, :edit, &1)
           )
 
         {:noreply,
          socket
          |> put_flash(:info, "user created")
-         |> UserAuth.log_in_user(user)}
+         |> redirect(to: Routes.user_session_path(socket, :new))}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}

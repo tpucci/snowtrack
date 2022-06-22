@@ -7,7 +7,7 @@ defmodule SnowtrackWeb.Components.SubmitBtn do
     assigns = assigns |> assign_new(:class, fn -> @default_class end)
 
     ~H"""
-    <%= submit class: @class do %>
+    <%= submit class: @class, phx_disable_with: @label_disable_with do %>
       <span class="absolute left-0 inset-y-0 flex items-center pl-3">
         <%= component(@icon, class: "h-5 w-5 text-primary-500 group-hover:text-primary-300") %>
       </span>
