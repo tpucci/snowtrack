@@ -3,7 +3,6 @@ defmodule SnowtrackWeb.RegisterLive do
 
   alias Snowtrack.Accounts
   alias Snowtrack.Accounts.User
-  alias SnowtrackWeb.UserAuth
 
   def render(assigns) do
     debounce = if assigns.changeset.action, do: nil, else: "blur"
