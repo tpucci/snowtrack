@@ -22,7 +22,8 @@ defmodule SnowtrackWeb.Components.TextField do
             required: true,
             phx_debounce: @debounce,
             class: @class,
-            placeholder: @placeholder
+            placeholder: @placeholder,
+            value: input_value(@form, @field)
           ) %>
       <% end %>
       <%= error_tag(@form, @field) %>
