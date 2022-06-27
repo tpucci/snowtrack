@@ -127,6 +127,25 @@ defmodule Snowtrack.Accounts.User do
   end
 
   @doc """
+  Verifies the login token.
+
+  If there is no user or the user doesn't have a login token, we call
+  `Bcrypt.no_user_verify/0` to avoid timing attacks.
+  """
+  def valid_login_token?(
+        %Snowtrack.Accounts.User{hashed_login_token: hashed_login_token},
+        login_token
+      )
+      when is_binary(hashed_login_token) and byte_size(login_token) > 0 do
+    Bcrypt.verify_pass(login_token, hashed_login_token)
+  end
+
+  def valid_login_token?(_, _) do
+    Bcrypt.no_user_verify()
+    false
+  end
+
+  @doc """
   Validates the current password otherwise adds an error to the changeset.
   """
   def validate_current_password(changeset, password) do
