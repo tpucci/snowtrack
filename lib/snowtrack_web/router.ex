@@ -1,6 +1,8 @@
 defmodule SnowtrackWeb.Router do
   use SnowtrackWeb, :router
 
+  import SnowtrackWeb.UserAuth
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -8,6 +10,7 @@ defmodule SnowtrackWeb.Router do
     plug :put_root_layout, {SnowtrackWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :fetch_current_user
   end
 
   pipeline :api do
@@ -18,7 +21,6 @@ defmodule SnowtrackWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    live "/signin", SignInLive
   end
 
   # Other scopes may use custom stacks.
@@ -53,5 +55,45 @@ defmodule SnowtrackWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  ## Authentication routes
+
+  scope "/", SnowtrackWeb do
+    pipe_through [:browser, :redirect_if_user_is_authenticated]
+
+    live_session :unregistered do
+      live "/register", Accounts.RegisterLive
+      live "/login", Accounts.LogInLive
+      live "/users/unconfirmed", Accounts.UnconfirmedLive
+      live "/users/confirm/:token", Accounts.ConfirmLive
+    end
+
+    get "/users/log_in/email/:email/login_token/:login_token",
+        UserSessionController,
+        :create_from_login_token
+
+    get "/users/reset_password", UserResetPasswordController, :new
+    post "/users/reset_password", UserResetPasswordController, :create
+    get "/users/reset_password/:token", UserResetPasswordController, :edit
+    put "/users/reset_password/:token", UserResetPasswordController, :update
+  end
+
+  scope "/", SnowtrackWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    get "/users/settings", UserSettingsController, :edit
+    put "/users/settings", UserSettingsController, :update
+    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+  end
+
+  scope "/", SnowtrackWeb do
+    pipe_through [:browser]
+
+    delete "/users/log_out", UserSessionController, :delete
+    get "/users/confirm", UserConfirmationController, :new
+    post "/users/confirm", UserConfirmationController, :create
+    # get "/users/confirm/:token", UserConfirmationController, :edit
+    # post "/users/confirm/:token", UserConfirmationController, :update
   end
 end

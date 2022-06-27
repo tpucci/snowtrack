@@ -71,13 +71,17 @@ defmodule SnowtrackWeb.Accounts.LogInLive do
     if user = Accounts.get_user_by_email_and_password(email, password) do
       login_token = User.generate_login_token()
 
-      case Accounts.update_login_token(user, %{login_token: login_token}) do
-        :ok -> {:noreply, socket |> put_flash(:info, "All ok")}
-        # TODO: register the error
-        _ -> {:noreply, socket |> put_flash(:error, "Unknown error")}
-      end
+      Accounts.update_login_token(user, %{login_token: login_token})
+
+      {:noreply,
+       socket
+       |> redirect(
+         to: Routes.user_session_path(socket, :create_from_login_token, user.email, login_token)
+       )}
     else
-      {:noreply, socket |> put_flash(:error, dgettext("accounts", "Invalid email or password"))}
+      {:noreply,
+       socket
+       |> put_flash(:error, dgettext("accounts", "Invalid email or password"))}
     end
   end
 end
