@@ -36,18 +36,15 @@ defmodule Snowtrack.AccountsTest do
   end
 
   describe "get_user_by_email_and_login_token/2" do
-    @tag :wip
     test "does not return the user if the email does not exist" do
       refute Accounts.get_user_by_email_and_login_token("unknown@example.com", "hello world!")
     end
 
-    @tag :wip
     test "does not return the user if the login_token is not valid" do
       user = user_fixture()
       refute Accounts.get_user_by_email_and_login_token(user.email, "invalid")
     end
 
-    @tag :wip
     test "returns the user if the email and login_token are valid" do
       %{id: id} = user = user_fixture()
 
@@ -534,7 +531,6 @@ defmodule Snowtrack.AccountsTest do
       %{user: user}
     end
 
-    @tag :wip
     test "updates the login token with a valid token", %{user: user} do
       {:ok, _} = Accounts.update_login_token(user, %{login_token: "token"})
       changed_user = Repo.get!(User, user.id)
