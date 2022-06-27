@@ -6,11 +6,13 @@ defmodule Snowtrack.AccountsFixtures do
 
   def unique_user_email, do: "user#{System.unique_integer()}@example.com"
   def valid_user_password, do: "hello world!"
+  def valid_user_login_token, do: "that's a good login token!"
 
   def valid_user_attributes(attrs \\ %{}) do
     Enum.into(attrs, %{
       email: unique_user_email(),
-      password: valid_user_password()
+      password: valid_user_password(),
+      login_token: valid_user_login_token()
     })
   end
 
@@ -19,6 +21,10 @@ defmodule Snowtrack.AccountsFixtures do
       attrs
       |> valid_user_attributes()
       |> Snowtrack.Accounts.register_user()
+
+    {:ok, user} =
+      user
+      |> Snowtrack.Accounts.update_login_token(valid_user_attributes(attrs))
 
     user
   end

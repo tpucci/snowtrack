@@ -45,6 +45,24 @@ defmodule Snowtrack.Accounts do
   end
 
   @doc """
+  Gets a user by email and login token.
+
+  ## Examples
+
+      iex> get_user_by_email_and_login_token("foo@example.com", "correct_token")
+      %User{}
+
+      iex> get_user_by_email_and_login_token("foo@example.com", "invalid_token")
+      nil
+
+  """
+  def get_user_by_email_and_login_token(email, login_token)
+      when is_binary(email) and is_binary(login_token) do
+    user = Repo.get_by(User, email: email)
+    if User.valid_login_token?(user, login_token), do: user
+  end
+
+  @doc """
   Gets a single user.
 
   Raises `Ecto.NoResultsError` if the User does not exist.
@@ -359,10 +377,6 @@ defmodule Snowtrack.Accounts do
       user
       |> User.login_token_changeset(attrs)
 
-    case Repo.update(changeset) do
-      {:ok, _} -> :ok
-      # TODO: register error
-      _ -> :error
-    end
+    Repo.update(changeset)
   end
 end
