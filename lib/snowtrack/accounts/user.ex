@@ -7,6 +7,8 @@ defmodule Snowtrack.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+    field :login_token, :string, virtual: true, redact: true
+    field :hashed_login_token, :string
 
     timestamps()
   end
@@ -47,10 +49,7 @@ defmodule Snowtrack.Accounts.User do
   defp validate_password(changeset, opts) do
     changeset
     |> validate_required([:password])
-    |> validate_length(:password, min: 12, max: 72)
-    # |> validate_format(:password, ~r/[a-z]/, message: "at least one lower case character")
-    # |> validate_format(:password, ~r/[A-Z]/, message: "at least one upper case character")
-    # |> validate_format(:password, ~r/[!?@#$%^&*_0-9]/, message: "at least one digit or punctuation character")
+    |> validate_length(:password, min: 6, max: 72)
     |> maybe_hash_password(opts)
   end
 
@@ -136,5 +135,33 @@ defmodule Snowtrack.Accounts.User do
     else
       add_error(changeset, :current_password, "is not valid")
     end
+  end
+
+  @doc """
+  A user changeset for setting the login hash.
+  """
+  def login_token_changeset(user, attrs) do
+    user
+    |> cast(attrs, [:login_token])
+    |> hash_login_token()
+  end
+
+  defp hash_login_token(%{valid?: false} = changeset),
+    do: changeset
+
+  defp hash_login_token(%{changes: %{login_token: nil}} = changeset),
+    do: changeset |> put_change(:hashed_login_token, nil) |> delete_change(:login_token)
+
+  defp hash_login_token(%{changes: %{login_token: token}} = changeset),
+    do:
+      changeset
+      |> put_change(:hashed_login_token, Bcrypt.hash_pwd_salt(token))
+      |> delete_change(:login_token)
+
+  @doc """
+  Generated a login token.
+  """
+  def generate_login_token do
+    :crypto.strong_rand_bytes(40) |> Base.url_encode64()
   end
 end

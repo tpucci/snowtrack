@@ -5,6 +5,8 @@ defmodule SnowtrackWeb.Accounts.RegisterLive do
 
   alias Snowtrack.Accounts
   alias Snowtrack.Accounts.User
+  alias SnowtrackWeb.Accounts.LogInLive
+  alias SnowtrackWeb.Accounts.ConfirmLive
   alias SnowtrackWeb.Accounts.UnconfirmedLive
 
   def render(assigns) do
@@ -46,6 +48,13 @@ defmodule SnowtrackWeb.Accounts.RegisterLive do
             label_disable_with={dgettext("accounts", "Registering...")}
           />
         </.form>
+
+        <div>
+          <%= live_redirect(dgettext("accounts", "Already have an account ? Log in here"),
+            to: Routes.live_path(@socket, LogInLive),
+            class: "text-sm font-medium text-primary-600 hover:text-primary-500"
+          ) %>
+        </div>
       </div>
     </div>
     """
@@ -72,7 +81,7 @@ defmodule SnowtrackWeb.Accounts.RegisterLive do
         {:ok, _} =
           Accounts.deliver_user_confirmation_instructions(
             user,
-            &Routes.user_confirmation_url(socket, :edit, &1)
+            fn params -> Routes.live_path(socket, ConfirmLive, params) end
           )
 
         {:noreply,

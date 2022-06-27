@@ -4,6 +4,7 @@ defmodule SnowtrackWeb.Accounts.ConfirmLive do
   use SnowtrackWeb, :live_view
 
   alias Snowtrack.Accounts
+  alias SnowtrackWeb.Accounts.LogInLive
 
   def render(assigns) do
     ~H"""
@@ -42,9 +43,10 @@ defmodule SnowtrackWeb.Accounts.ConfirmLive do
   def handle_event("confirm", _, socket) do
     case Accounts.confirm_user(socket.assigns.token) do
       {:ok, _} ->
-        socket
-        |> put_flash(:info, dgettext("accounts", "User confirmed successfully."))
-        |> redirect(to: "/")
+        {:noreply,
+         socket
+         |> put_flash(:info, dgettext("accounts", "User confirmed successfully."))
+         |> push_redirect(to: Routes.live_path(socket, LogInLive))}
 
       :error ->
         # If there is a current user and the account was already confirmed,

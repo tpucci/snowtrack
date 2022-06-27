@@ -350,4 +350,19 @@ defmodule Snowtrack.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Updates the user with the given login token.
+  """
+  def update_login_token(user, attrs) do
+    changeset =
+      user
+      |> User.login_token_changeset(attrs)
+
+    case Repo.update(changeset) do
+      {:ok, _} -> :ok
+      # TODO: register error
+      _ -> :error
+    end
+  end
 end
