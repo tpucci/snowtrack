@@ -22,6 +22,7 @@ defmodule SnowtrackWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
+      import Phoenix.LiveViewTest
       import SnowtrackWeb.ConnCase
 
       alias SnowtrackWeb.Router.Helpers, as: Routes

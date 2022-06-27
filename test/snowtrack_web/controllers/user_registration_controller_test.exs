@@ -1,54 +1,48 @@
 defmodule SnowtrackWeb.UserRegistrationControllerTest do
+  @moduledoc false
   use SnowtrackWeb.ConnCase, async: true
 
   import Snowtrack.AccountsFixtures
 
-  describe "GET /users/register" do
-    test "renders registration page", %{conn: conn} do
-      conn = get(conn, Routes.user_registration_path(conn, :new))
-      response = html_response(conn, 200)
-      assert response =~ "<h1>Register</h1>"
-      assert response =~ "Log in</a>"
-      assert response =~ "Register</a>"
+  describe "LIVE /register" do
+    @tag :live
+    test "renders the registration page", %{conn: conn} do
+      {:ok, _view, html} = live(conn, "/register")
+      assert html =~ "Register and start monitoring your apps"
+      assert html =~ "Log in"
     end
 
+    @tag :live
     test "redirects if already logged in", %{conn: conn} do
-      conn = conn |> log_in_user(user_fixture()) |> get(Routes.user_registration_path(conn, :new))
+      conn = conn |> log_in_user(user_fixture()) |> get("/register")
       assert redirected_to(conn) == "/"
     end
-  end
 
-  describe "POST /users/register" do
-    @tag :capture_log
-    test "creates account and logs the user in", %{conn: conn} do
+    @tag :live
+    test "creates account and redirect to the confirm email page", %{conn: conn} do
+      {:ok, view, _html} = live(conn, "/register")
       email = unique_user_email()
 
-      conn =
-        post(conn, Routes.user_registration_path(conn, :create), %{
-          "user" => valid_user_attributes(email: email)
-        })
+      view
+      |> element("form")
+      |> render_submit(%{"user" => %{email: email, password: "valid password"}})
 
-      assert get_session(conn, :user_token)
-      assert redirected_to(conn) == "/"
-
-      # Now do a logged in request and assert on the menu
-      conn = get(conn, "/")
-      response = html_response(conn, 200)
-      assert response =~ email
-      assert response =~ "Settings</a>"
-      assert response =~ "Log out</a>"
+      {path, flash} = assert_redirect(view)
+      assert flash["info"] == "You have been registered"
+      assert path =~ ~r/\/users\/unconfirmed\?email=.+/
     end
 
+    @tag :live
     test "render errors for invalid data", %{conn: conn} do
-      conn =
-        post(conn, Routes.user_registration_path(conn, :create), %{
-          "user" => %{"email" => "with spaces", "password" => "too short"}
-        })
+      {:ok, view, _html} = live(conn, "/register")
 
-      response = html_response(conn, 200)
-      assert response =~ "<h1>Register</h1>"
-      assert response =~ "must have the @ sign and no spaces"
-      assert response =~ "should be at least 12 character"
+      html =
+        view
+        |> element("form")
+        |> render_submit(%{"user" => %{email: "invalid email", password: "short"}})
+
+      assert html =~ "must have the @ sign and no spaces"
+      assert html =~ "should be at least 6 character"
     end
   end
 end
