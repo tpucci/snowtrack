@@ -17,12 +17,6 @@ defmodule SnowtrackWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", SnowtrackWeb do
-    pipe_through :browser
-
-    get "/", PageController, :index
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", SnowtrackWeb do
   #   pipe_through :api
@@ -55,6 +49,14 @@ defmodule SnowtrackWeb.Router do
 
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
+  end
+
+  # Landing routes
+
+  scope "/", SnowtrackWeb do
+    pipe_through :browser
+
+    live "/", Landing.LandingLive
   end
 
   ## Authentication routes
