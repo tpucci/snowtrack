@@ -68,7 +68,7 @@ defmodule SnowtrackWeb.Accounts.ConfirmLive do
                   "User confirmation link is invalid or it has expired. Log in again to get another confirmation link."
                 )
               )
-              # TODO : |> redirect(to: "/")
+              |> push_redirect(to: Routes.live_path(socket, LogInLive))
             }
         end
     end
