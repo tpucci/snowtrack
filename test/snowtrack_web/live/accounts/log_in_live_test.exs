@@ -20,6 +20,7 @@ defmodule SnowtrackWeb.UserSessionControllerTest do
       assert html =~ "Log in"
       assert html =~ "Register here</a>"
       assert html =~ "I forgot my password</a>"
+      assert html =~ "<a href=\"/\""
     end
 
     @tag :live

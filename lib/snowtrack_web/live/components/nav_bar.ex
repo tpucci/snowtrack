@@ -7,7 +7,7 @@ defmodule SnowtrackWeb.Components.NavBar do
       <div class="py-4 px-4 lg:px-8 flex items-center max-w-screen-xl mx-auto">
         <a href="/" class="flex items-center pr-3">
           <img src="/images/icon/snowtrack.svg" class="h-8 mr-3" />
-          <strong class="text-white">snowtrack</strong>
+          <strong class="text-white">Snowtrack</strong>
         </a>
       </div>
     </div>

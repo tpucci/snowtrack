@@ -108,6 +108,7 @@ defmodule SnowtrackWeb do
       import SnowtrackWeb.Components.TextField
       import SnowtrackWeb.Components.SubmitBtn
       import SnowtrackWeb.Components.Icon
+      import SnowtrackWeb.Components.NavBar
     end
   end
 
