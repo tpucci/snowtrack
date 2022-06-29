@@ -53,6 +53,40 @@ defmodule Snowtrack.AccountsTest do
     end
   end
 
+  describe "get_confirmed_user_by_email_and_login_token/2" do
+    @tag :wip
+    test "does not return the user if the email does not exist" do
+      refute Accounts.get_confirmed_user_by_email_and_login_token(
+               "unknown@example.com",
+               "hello world!"
+             )
+    end
+
+    test "does not return the user if the login_token is not valid" do
+      user = user_fixture()
+      refute Accounts.get_confirmed_user_by_email_and_login_token(user.email, "invalid")
+    end
+
+    test "does not return the user if the user is not confirmed" do
+      user = user_fixture(%{confirmed_at: nil})
+
+      refute Accounts.get_confirmed_user_by_email_and_login_token(
+               user.email,
+               valid_user_login_token()
+             )
+    end
+
+    test "returns the user if the email and login_token are valid" do
+      %{id: id} = user = user_fixture()
+
+      assert %User{id: ^id} =
+               Accounts.get_confirmed_user_by_email_and_login_token(
+                 user.email,
+                 valid_user_login_token()
+               )
+    end
+  end
+
   describe "get_user!/1" do
     test "raises if id is invalid" do
       assert_raise Ecto.NoResultsError, fn ->
