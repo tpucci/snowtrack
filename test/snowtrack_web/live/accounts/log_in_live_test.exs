@@ -79,8 +79,8 @@ defmodule SnowtrackWeb.LoginLiveTest do
     end
   end
 
-  @tag :integration
   describe "GET /users/log_in/email/:email/login_token/:login_token" do
+    @tag :live
     test "logs the user in", %{conn: conn, user: user} do
       {:ok, view, _html} = live(conn, "/login")
 
@@ -96,6 +96,28 @@ defmodule SnowtrackWeb.LoginLiveTest do
 
       assert conn.resp_cookies["_snowtrack_web_user_remember_me"]
       assert get_session(conn, :user_token)
+    end
+
+    @tag :live
+    test "does not log in an unconfirmed user", %{conn: conn} do
+      user = user_fixture(%{confirmed_at: nil})
+
+      {:ok, view, _html} = live(conn, "/login")
+
+      view
+      |> element("form")
+      |> render_submit(%{
+        "user" => %{"email" => user.email, "password" => valid_user_password()}
+      })
+
+      {path, _flash} = assert_redirect(view)
+
+      conn = get(conn, path)
+
+      assert redirected_to(conn) =~ "/users/unconfirmed?email=#{URI.encode_www_form(user.email)}"
+
+      assert get_flash(conn, :info) =~ "account has not been confirmed yet"
+      assert get_flash(conn, :info) =~ user.email
     end
   end
 end
