@@ -126,7 +126,7 @@ defmodule Snowtrack.Accounts do
 
   """
   def change_user_registration(%User{} = user, attrs \\ %{}) do
-    User.registration_changeset(user, attrs, hash_password: false)
+    User.registration_changeset(user, attrs, hash_password: false, disable_unique_email: true)
   end
 
   ## Settings

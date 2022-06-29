@@ -29,21 +29,39 @@ defmodule Snowtrack.Accounts.User do
       password field is not desired (like when using this changeset for
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
+
+    * `:disable_unique_email` - Hashes the password so it can be stored securely
+      in the database and ensures the password field is cleared to prevent
+      leaks in the logs. If password hashing is not needed and clearing the
+      password field is not desired (like when using this changeset for
+      validations on a LiveView form), this option can be set to `false`.
+      Defaults to `true`.
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password])
-    |> validate_email()
+    |> validate_email(opts)
     |> validate_password(opts)
   end
 
-  defp validate_email(changeset) do
+  defp validate_email(changeset, opts \\ []) do
     changeset
     |> validate_required([:email])
     |> validate_format(:email, ~r/^[^\s]+@[^\s]+$/, message: "must have the @ sign and no spaces")
     |> validate_length(:email, max: 160)
-    |> unsafe_validate_unique(:email, Snowtrack.Repo)
-    |> unique_constraint(:email)
+    |> maybe_validate_unique_email(opts)
+  end
+
+  defp maybe_validate_unique_email(changeset, opts) do
+    disable_unique_email? = Keyword.get(opts, :disable_unique_email, false)
+
+    if disable_unique_email? do
+      changeset
+    else
+      changeset
+      |> unsafe_validate_unique(:email, Snowtrack.Repo)
+      |> unique_constraint(:email)
+    end
   end
 
   defp validate_password(changeset, opts) do

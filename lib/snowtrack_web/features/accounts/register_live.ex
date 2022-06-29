@@ -98,6 +98,18 @@ defmodule SnowtrackWeb.Accounts.RegisterLive do
          |> put_flash(:info, dgettext("accounts", "You have been registered"))
          |> push_redirect(to: Routes.live_path(socket, UnconfirmedLive, email: user.email))}
 
+      # We do not disclose that the email has already been taken.
+      {:error,
+       %Ecto.Changeset{
+         action: :insert,
+         changes: %{email: email},
+         errors: [email: {_message, [validation: :unsafe_unique, fields: [:email]]}]
+       }} ->
+        {:noreply,
+         socket
+         |> put_flash(:info, dgettext("accounts", "You have been registered"))
+         |> push_redirect(to: Routes.live_path(socket, UnconfirmedLive, email: email))}
+
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign(socket, changeset: changeset)}
     end
