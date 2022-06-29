@@ -1,4 +1,4 @@
-defmodule SnowtrackWeb.UserRegistrationControllerTest do
+defmodule SnowtrackWeb.RegisterLiveTest do
   @moduledoc false
   use SnowtrackWeb.ConnCase, async: true
 

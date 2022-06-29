@@ -8,21 +8,24 @@ defmodule SnowtrackWeb.Accounts.ConfirmLive do
 
   def render(assigns) do
     ~H"""
-    <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-md w-full space-y-8">
-        <div>
-          <img class="mx-auto h-12 w-auto" src="/images/icon/snowtrack.svg" alt="Snowtrack logo" />
-          <h1 class="mt-6 text-center text-3xl font-bold text-white">
-            <%= dgettext("accounts", "Confirm your email") %>
-          </h1>
-        </div>
+    <div class="min-h-full flex flex-col">
+      <.navbar />
+      <div class="flex grow items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+          <div>
+            <img class="mx-auto h-12 w-auto" src="/images/icon/snowtrack.svg" alt="Snowtrack logo" />
+            <h1 class="mt-6 text-center text-3xl font-bold text-white">
+              <%= dgettext("accounts", "Confirm your email") %>
+            </h1>
+          </div>
 
-        <.form let={_f} for={:user} phx-submit="confirm" class="mt-8 space-y-6">
-          <.submitbtn
-            label={dgettext("accounts", "Confirm my account")}
-            label_disable_with={dgettext("accounts", "Activating the account...")}
-          />
-        </.form>
+          <.form let={_f} for={:user} phx-submit="confirm" class="mt-8 space-y-6">
+            <.submitbtn
+              label={dgettext("accounts", "Confirm my account")}
+              label_disable_with={dgettext("accounts", "Activating the account...")}
+            />
+          </.form>
+        </div>
       </div>
     </div>
     """

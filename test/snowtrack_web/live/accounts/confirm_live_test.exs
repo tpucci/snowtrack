@@ -1,4 +1,4 @@
-defmodule SnowtrackWeb.UserConfirmationControllerTest do
+defmodule SnowtrackWeb.ConfirmLiveTest do
   use SnowtrackWeb.ConnCase, async: true
 
   alias Snowtrack.Accounts
@@ -68,6 +68,7 @@ defmodule SnowtrackWeb.UserConfirmationControllerTest do
       {:ok, _view, html} = live(conn, "/users/confirm/some-token")
 
       assert html =~ "Confirm your email"
+      assert html =~ "<a href=\"/\""
     end
 
     @tag :live

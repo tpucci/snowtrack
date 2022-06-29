@@ -1,4 +1,4 @@
-defmodule SnowtrackWeb.UserSessionControllerTest do
+defmodule SnowtrackWeb.LoginLiveTest do
   use SnowtrackWeb.ConnCase, async: true
 
   import Snowtrack.AccountsFixtures
