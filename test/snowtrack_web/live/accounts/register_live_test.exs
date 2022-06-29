@@ -15,7 +15,7 @@ defmodule SnowtrackWeb.RegisterLiveTest do
 
     @tag :live
     test "redirects if already logged in", %{conn: conn} do
-      conn = conn |> log_in_user(user_fixture()) |> get("/register")
+      conn = conn |> login_user(user_fixture()) |> get("/register")
       assert redirected_to(conn) == "/"
     end
 

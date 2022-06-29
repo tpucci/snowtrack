@@ -8,7 +8,7 @@ defmodule SnowtrackWeb.UserSessionController do
   def create_from_login_token(conn, %{"email" => email, "login_token" => login_token}) do
     if user = Accounts.get_user_by_email_and_login_token(email, login_token) do
       if user.confirmed_at != nil do
-        UserAuth.log_in_user(conn, user)
+        UserAuth.login_user(conn, user)
       else
         conn
         |> put_flash(

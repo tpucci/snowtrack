@@ -27,7 +27,7 @@ defmodule SnowtrackWeb.LoginLiveTest do
     test "redirects if already logged in", %{user: user} do
       assert {:error, {:redirect, %{to: "/"}}} =
                build_conn()
-               |> log_in_user(user)
+               |> login_user(user)
                |> live("/login")
     end
 
@@ -44,7 +44,7 @@ defmodule SnowtrackWeb.LoginLiveTest do
       {path, flash} = assert_redirect(view)
 
       refute flash["error"]
-      assert path =~ "/users/log_in/email/#{user.email |> URI.encode_www_form()}/login_token/"
+      assert path =~ "/users/login/email/#{user.email |> URI.encode_www_form()}/login_token/"
     end
 
     @tag :live
@@ -65,7 +65,7 @@ defmodule SnowtrackWeb.LoginLiveTest do
 
   describe "DELETE /users/log_out" do
     test "logs the user out", %{conn: conn, user: user} do
-      conn = conn |> log_in_user(user) |> delete(Routes.user_session_path(conn, :delete))
+      conn = conn |> login_user(user) |> delete(Routes.user_session_path(conn, :delete))
       assert redirected_to(conn) == "/"
       refute get_session(conn, :user_token)
       assert get_flash(conn, :info) =~ "Logged out successfully"
@@ -79,7 +79,7 @@ defmodule SnowtrackWeb.LoginLiveTest do
     end
   end
 
-  describe "GET /users/log_in/email/:email/login_token/:login_token" do
+  describe "GET /users/login/email/:email/login_token/:login_token" do
     @tag :live
     test "logs the user in", %{conn: conn, user: user} do
       {:ok, view, _html} = live(conn, "/login")

@@ -106,7 +106,7 @@ defmodule SnowtrackWeb.ConfirmLiveTest do
 
       assert {:error, {:redirect, %{to: "/"}}} =
                build_conn()
-               |> log_in_user(user)
+               |> login_user(user)
                |> live("/users/confirm/#{token}")
     end
 

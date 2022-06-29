@@ -66,12 +66,12 @@ defmodule SnowtrackWeb.Router do
 
     live_session :unregistered do
       live "/register", Accounts.RegisterLive
-      live "/login", Accounts.LogInLive
+      live "/login", Accounts.LoginLive
       live "/users/unconfirmed", Accounts.UnconfirmedLive
       live "/users/confirm/:token", Accounts.ConfirmLive
     end
 
-    get "/users/log_in/email/:email/login_token/:login_token",
+    get "/users/login/email/:email/login_token/:login_token",
         UserSessionController,
         :create_from_login_token
 

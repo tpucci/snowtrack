@@ -4,7 +4,7 @@ defmodule SnowtrackWeb.Accounts.ConfirmLive do
   use SnowtrackWeb, :live_view
 
   alias Snowtrack.Accounts
-  alias SnowtrackWeb.Accounts.LogInLive
+  alias SnowtrackWeb.Accounts.LoginLive
 
   def render(assigns) do
     ~H"""
@@ -49,7 +49,7 @@ defmodule SnowtrackWeb.Accounts.ConfirmLive do
         {:noreply,
          socket
          |> put_flash(:info, dgettext("accounts", "User confirmed successfully."))
-         |> push_redirect(to: Routes.live_path(socket, LogInLive))}
+         |> push_redirect(to: Routes.live_path(socket, LoginLive))}
 
       :error ->
         # If there is a current user and the account was already confirmed,
@@ -71,7 +71,7 @@ defmodule SnowtrackWeb.Accounts.ConfirmLive do
                   "User confirmation link is invalid or it has expired. Log in again to get another confirmation link."
                 )
               )
-              |> push_redirect(to: Routes.live_path(socket, LogInLive))
+              |> push_redirect(to: Routes.live_path(socket, LoginLive))
             }
         end
     end

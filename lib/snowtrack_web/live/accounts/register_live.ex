@@ -5,7 +5,7 @@ defmodule SnowtrackWeb.Accounts.RegisterLive do
 
   alias Snowtrack.Accounts
   alias Snowtrack.Accounts.User
-  alias SnowtrackWeb.Accounts.LogInLive
+  alias SnowtrackWeb.Accounts.LoginLive
   alias SnowtrackWeb.Accounts.ConfirmLive
   alias SnowtrackWeb.Accounts.UnconfirmedLive
 
@@ -59,7 +59,7 @@ defmodule SnowtrackWeb.Accounts.RegisterLive do
 
           <div>
             <%= live_redirect(dgettext("accounts", "Already have an account ? Log in here"),
-              to: Routes.live_path(@socket, LogInLive),
+              to: Routes.live_path(@socket, LoginLive),
               class: "text-sm font-medium text-primary-600 hover:text-primary-500"
             ) %>
           </div>

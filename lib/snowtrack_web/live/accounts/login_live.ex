@@ -1,4 +1,4 @@
-defmodule SnowtrackWeb.Accounts.LogInLive do
+defmodule SnowtrackWeb.Accounts.LoginLive do
   @moduledoc false
 
   use SnowtrackWeb, :live_view
