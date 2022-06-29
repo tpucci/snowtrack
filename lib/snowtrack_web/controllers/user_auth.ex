@@ -4,6 +4,7 @@ defmodule SnowtrackWeb.UserAuth do
 
   alias Snowtrack.Accounts
   alias SnowtrackWeb.Router.Helpers, as: Routes
+  alias SnowtrackWeb.Accounts.LoginLive
 
   # Make the remember me cookie valid for 60 days.
   # If you want bump or reduce this value, also change
@@ -135,7 +136,7 @@ defmodule SnowtrackWeb.UserAuth do
       conn
       |> put_flash(:error, "You must log in to access this page.")
       |> maybe_store_return_to()
-      |> redirect(to: Routes.user_session_path(conn, :new))
+      |> redirect(to: Routes.live_path(conn, LoginLive))
       |> halt()
     end
   end
