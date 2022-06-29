@@ -10,6 +10,7 @@ defmodule SnowtrackWeb.UserRegistrationControllerTest do
       {:ok, _view, html} = live(conn, "/register")
       assert html =~ "Register and start monitoring your apps"
       assert html =~ "Log in"
+      assert html =~ "<a href=\"/\""
     end
 
     @tag :live

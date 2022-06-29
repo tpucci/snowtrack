@@ -13,47 +13,56 @@ defmodule SnowtrackWeb.Accounts.RegisterLive do
     debounce = if assigns.changeset.action, do: nil, else: "blur"
 
     ~H"""
-    <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div class="max-w-md w-full space-y-8">
-        <div>
-          <img class="mx-auto h-12 w-auto" src="/images/icon/snowtrack.svg" alt="Snowtrack logo" />
-          <h1 class="mt-6 text-center text-3xl font-bold text-white">
-            <%= dgettext("accounts", "Register and start monitoring your apps") %>
-          </h1>
-        </div>
-        <.form let={f} for={@changeset} phx-change="validate" phx-submit="save" class="mt-8 space-y-6">
-          <div class="space-y-3">
-            <.textfield
-              form={f}
-              field={:email}
-              field_type={:email}
-              label={dgettext("accounts", "Email address")}
-              placeholder={dgettext("accounts", "Email address")}
-              debounce={debounce}
-            />
-
-            <.textfield
-              form={f}
-              field={:password}
-              field_type={:password}
-              label={dgettext("accounts", "Password")}
-              placeholder={dgettext("accounts", "Password")}
-              debounce={debounce}
-            />
+    <div class="min-h-full flex flex-col">
+      <.navbar />
+      <div class="flex grow items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+          <div>
+            <img class="mx-auto h-12 w-auto" src="/images/icon/snowtrack.svg" alt="Snowtrack logo" />
+            <h1 class="mt-6 text-center text-3xl font-bold text-white">
+              <%= dgettext("accounts", "Register and start monitoring your apps") %>
+            </h1>
           </div>
+          <.form
+            let={f}
+            for={@changeset}
+            phx-change="validate"
+            phx-submit="save"
+            class="mt-8 space-y-6"
+          >
+            <div class="space-y-3">
+              <.textfield
+                form={f}
+                field={:email}
+                field_type={:email}
+                label={dgettext("accounts", "Email address")}
+                placeholder={dgettext("accounts", "Email address")}
+                debounce={debounce}
+              />
 
-          <.submitbtn
-            label={dgettext("accounts", "Register")}
-            icon={&ic_lock_open/1}
-            label_disable_with={dgettext("accounts", "Registering...")}
-          />
-        </.form>
+              <.textfield
+                form={f}
+                field={:password}
+                field_type={:password}
+                label={dgettext("accounts", "Password")}
+                placeholder={dgettext("accounts", "Password")}
+                debounce={debounce}
+              />
+            </div>
 
-        <div>
-          <%= live_redirect(dgettext("accounts", "Already have an account ? Log in here"),
-            to: Routes.live_path(@socket, LogInLive),
-            class: "text-sm font-medium text-primary-600 hover:text-primary-500"
-          ) %>
+            <.submitbtn
+              label={dgettext("accounts", "Register")}
+              icon={&ic_lock_open/1}
+              label_disable_with={dgettext("accounts", "Registering...")}
+            />
+          </.form>
+
+          <div>
+            <%= live_redirect(dgettext("accounts", "Already have an account ? Log in here"),
+              to: Routes.live_path(@socket, LogInLive),
+              class: "text-sm font-medium text-primary-600 hover:text-primary-500"
+            ) %>
+          </div>
         </div>
       </div>
     </div>
