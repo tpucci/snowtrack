@@ -416,7 +416,7 @@ defmodule Snowtrack.AccountsTest do
 
   describe "deliver_user_confirmation_instructions/2" do
     setup do
-      %{user: user_fixture()}
+      %{user: user_fixture(%{confirmed_at: nil})}
     end
 
     test "sends token through notification", %{user: user} do
@@ -435,7 +435,7 @@ defmodule Snowtrack.AccountsTest do
 
   describe "confirm_user/1" do
     setup do
-      user = user_fixture()
+      user = user_fixture(%{confirmed_at: nil})
 
       token =
         extract_user_token(fn url ->

@@ -11,7 +11,7 @@ defmodule SnowtrackWeb.ConfirmLiveTest do
       |> Map.replace!(:secret_key_base, SnowtrackWeb.Endpoint.config(:secret_key_base))
       |> init_test_session(%{})
 
-    %{user: user_fixture(), conn: conn}
+    %{user: user_fixture(%{confirmed_at: nil}), conn: conn}
   end
 
   # TODO: fix test
