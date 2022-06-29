@@ -42,4 +42,10 @@ Run `iex -S mix phx.server` or use VSCode and run the default debug task.
 
 ## Where are the features ?
 
+### Snowtrack Web
+
+They are located under `/lib/snowtrack_web/features`.
+
+### Snowtrack
+
 For now, there is no features. Come back later 😉

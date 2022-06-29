@@ -72,7 +72,7 @@ defmodule SnowtrackWeb.Router do
     end
 
     get "/users/login/email/:email/login_token/:login_token",
-        UserSessionController,
+        Accounts.UserSessionController,
         :create_from_login_token
 
     get "/users/reset_password", UserResetPasswordController, :new
@@ -92,6 +92,6 @@ defmodule SnowtrackWeb.Router do
   scope "/", SnowtrackWeb do
     pipe_through [:browser]
 
-    delete "/users/log_out", UserSessionController, :delete
+    delete "/users/log_out", Accounts.UserSessionController, :delete
   end
 end

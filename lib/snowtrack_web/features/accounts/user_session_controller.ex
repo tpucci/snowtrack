@@ -1,4 +1,4 @@
-defmodule SnowtrackWeb.UserSessionController do
+defmodule SnowtrackWeb.Accounts.UserSessionController do
   use SnowtrackWeb, :controller
 
   alias Snowtrack.Accounts
