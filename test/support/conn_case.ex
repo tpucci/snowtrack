@@ -24,6 +24,7 @@ defmodule SnowtrackWeb.ConnCase do
       import Phoenix.ConnTest
       import Phoenix.LiveViewTest
       import SnowtrackWeb.ConnCase
+      import Swoosh.TestAssertions
 
       alias SnowtrackWeb.Router.Helpers, as: Routes
 

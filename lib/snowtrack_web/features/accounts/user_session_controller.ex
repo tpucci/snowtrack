@@ -3,6 +3,7 @@ defmodule SnowtrackWeb.Accounts.UserSessionController do
 
   alias Snowtrack.Accounts
   alias SnowtrackWeb.UserAuth
+  alias SnowtrackWeb.Accounts.ConfirmLive
   alias SnowtrackWeb.Accounts.UnconfirmedLive
 
   def create_from_login_token(conn, %{"email" => email, "login_token" => login_token}) do
@@ -10,6 +11,12 @@ defmodule SnowtrackWeb.Accounts.UserSessionController do
       if user.confirmed_at != nil do
         UserAuth.login_user(conn, user)
       else
+        {:ok, _} =
+          Accounts.deliver_user_confirmation_instructions(
+            user,
+            fn params -> Routes.live_path(conn, ConfirmLive, params) end
+          )
+
         conn
         |> put_flash(
           :info,
