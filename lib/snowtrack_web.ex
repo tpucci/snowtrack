@@ -105,10 +105,11 @@ defmodule SnowtrackWeb do
   defp components do
     quote do
       # Import all design system components
-      import SnowtrackWeb.Components.TextField
-      import SnowtrackWeb.Components.SubmitBtn
+      import SnowtrackWeb.Components.RedirectBtn
       import SnowtrackWeb.Components.Icon
       import SnowtrackWeb.Components.NavBar
+      import SnowtrackWeb.Components.SubmitBtn
+      import SnowtrackWeb.Components.TextField
     end
   end
 

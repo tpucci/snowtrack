@@ -3,7 +3,7 @@ defmodule SnowtrackWeb.Landing.LandingLive do
 
   def render(assigns) do
     ~H"""
-    <div />
+    <.navbar />
     """
   end
 
