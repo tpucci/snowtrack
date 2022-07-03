@@ -67,6 +67,7 @@ defmodule SnowtrackWeb.Router do
     live_session :unregistered do
       live "/register", Accounts.RegisterLive
       live "/login", Accounts.LoginLive
+      live "/users/request_password_reset", Accounts.RequestPasswordResetLive
       live "/users/unconfirmed", Accounts.UnconfirmedLive
       live "/users/confirm/:token", Accounts.ConfirmLive
     end
@@ -75,8 +76,6 @@ defmodule SnowtrackWeb.Router do
         Accounts.UserSessionController,
         :create_from_login_token
 
-    get "/users/reset_password", UserResetPasswordController, :new
-    post "/users/reset_password", UserResetPasswordController, :create
     get "/users/reset_password/:token", UserResetPasswordController, :edit
     put "/users/reset_password/:token", UserResetPasswordController, :update
   end

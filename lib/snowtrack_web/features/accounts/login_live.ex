@@ -5,7 +5,7 @@ defmodule SnowtrackWeb.Accounts.LoginLive do
 
   alias Snowtrack.Accounts
   alias Snowtrack.Accounts.User
-  alias SnowtrackWeb.Accounts.RegisterLive
+  alias SnowtrackWeb.Accounts.{RegisterLive, RequestPasswordResetLive}
 
   def render(assigns) do
     ~H"""
@@ -52,8 +52,7 @@ defmodule SnowtrackWeb.Accounts.LoginLive do
             ) %>
 
             <%= live_redirect(dgettext("accounts", "I forgot my password"),
-              to: Routes.live_path(@socket, RegisterLive),
-              # TODO: Redirect to forgot password
+              to: Routes.live_path(@socket, RequestPasswordResetLive),
               class: "text-sm font-medium text-gray-500 hover:text-gray-400"
             ) %>
           </div>
@@ -65,6 +64,7 @@ defmodule SnowtrackWeb.Accounts.LoginLive do
 
   def mount(_params, _session, socket) do
     socket = assign(socket, page_title: dgettext("accounts", "Log in"))
+
     {:ok, socket}
   end
 
