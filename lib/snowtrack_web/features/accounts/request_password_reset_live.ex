@@ -1,11 +1,8 @@
 defmodule SnowtrackWeb.Accounts.RequestPasswordResetLive do
-  @moduledoc false
-
   use SnowtrackWeb, :live_view
 
   alias Snowtrack.Accounts
   alias SnowtrackWeb.Accounts.LoginLive
-  alias SnowtrackWeb.Landing.LandingLive
 
   def render(assigns) do
     ~H"""
