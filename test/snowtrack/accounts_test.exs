@@ -54,7 +54,6 @@ defmodule Snowtrack.AccountsTest do
   end
 
   describe "get_confirmed_user_by_email_and_login_token/2" do
-    @tag :wip
     test "does not return the user if the email does not exist" do
       refute Accounts.get_confirmed_user_by_email_and_login_token(
                "unknown@example.com",
