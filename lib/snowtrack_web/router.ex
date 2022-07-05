@@ -65,19 +65,17 @@ defmodule SnowtrackWeb.Router do
     pipe_through [:browser, :redirect_if_user_is_authenticated]
 
     live_session :unregistered do
-      live "/register", Accounts.RegisterLive
       live "/login", Accounts.LoginLive
-      live "/users/request_password_reset", Accounts.RequestPasswordResetLive
-      live "/users/unconfirmed", Accounts.UnconfirmedLive
+      live "/register", Accounts.RegisterLive
       live "/users/confirm/:token", Accounts.ConfirmLive
+      live "/users/request_password_reset", Accounts.RequestPasswordResetLive
+      live "/users/reset_password/:token", Accounts.ResetPasswordLive
+      live "/users/unconfirmed", Accounts.UnconfirmedLive
     end
 
     get "/users/login/email/:email/login_token/:login_token",
         Accounts.UserSessionController,
         :create_from_login_token
-
-    get "/users/reset_password/:token", UserResetPasswordController, :edit
-    put "/users/reset_password/:token", UserResetPasswordController, :update
   end
 
   scope "/", SnowtrackWeb do

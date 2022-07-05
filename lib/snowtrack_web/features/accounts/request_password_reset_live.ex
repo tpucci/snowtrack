@@ -2,7 +2,7 @@ defmodule SnowtrackWeb.Accounts.RequestPasswordResetLive do
   use SnowtrackWeb, :live_view
 
   alias Snowtrack.Accounts
-  alias SnowtrackWeb.Accounts.LoginLive
+  alias SnowtrackWeb.Accounts.{LoginLive, ResetPasswordLive}
 
   def render(assigns) do
     ~H"""
@@ -56,7 +56,7 @@ defmodule SnowtrackWeb.Accounts.RequestPasswordResetLive do
     if user = Accounts.get_user_by_email(email) do
       Accounts.deliver_user_reset_password_instructions(
         user,
-        fn token -> Routes.user_reset_password_url(socket, :edit, token) end
+        fn token -> Routes.live_path(socket, ResetPasswordLive, token) end
       )
     end
 
