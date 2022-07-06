@@ -39,6 +39,7 @@ defmodule SnowtrackWeb do
 
       # Include shared imports and aliases for views
       unquote(view_helpers())
+      unquote(components())
     end
   end
 
@@ -107,6 +108,7 @@ defmodule SnowtrackWeb do
       # Import all design system components
       import SnowtrackWeb.Components.RedirectBtn
       import SnowtrackWeb.Components.Icon
+      import SnowtrackWeb.Components.Flash
       import SnowtrackWeb.Components.NavBar
       import SnowtrackWeb.Components.SubmitBtn
       import SnowtrackWeb.Components.TextField
