@@ -13,6 +13,9 @@ defmodule SnowtrackWeb.Components.NavBar do
         <a href="/" class="flex items-center pr-3">
           <img src="/images/icon/snowtrack.svg" class="h-8 mr-3" />
           <strong class="text-white">Snowtrack</strong>
+          <div class="ml-3 text-xs leading-5 font-xs text-sky-400 bg-sky-400/10 rounded-full py-0.5 px-3">
+            <strong class="font-semibold">Beta</strong>
+          </div>
         </a>
         <div class="flex gap-2">
           <.redirectbtn label="Register" to={Routes.live_path(SnowtrackWeb.Endpoint, RegisterLive)} />
